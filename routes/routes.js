@@ -1,48 +1,40 @@
-import express from "express";
-import axios from "axios";
-import cities from "../model/cities.js";
-import mongoose from "mongoose";
-
-
-
-/* PROTEGER */ const apiKey = '302115177249219dbfaf573dfddd63ac'
+const express = require('express')
+const axios = require('axios')
+const mongoose = require('mongoose')
+const Cities = require ("../model/cities") 
 
 const router = express.Router();
 
+//show all cities
+router.get('/allcities', async (req, res) => {
+    const allCities = await Cities.find() 
+    res.send (allCities)
+    
+})
 
 //Gives cities temperature
-
-/* router.get('/algo', (req, res) => {
-    res.send ('ruta temporal')
-
-}) */
-
 router.get("/:city", async (req, res) => {
     
-    //try {
-
-        /* const creacion = cities({name:req.params.city}) //aca lo crearía
-        creacion.save().then( data => res.json(data)).catch( err => console.log(err)) */
-
-        const nvo = await createListing(cities,
-            {
-                name: "prueba",
-            }
-        );
+    try {
         
-      //  let info = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${req.params.city}&appid=${apiKey}&units=metric`)
-        //let temperature = info.data.main.temp.toString()
-        //res.send(temperature)
-        //res.send('holaa ' + process.env.MONGODB_URI)
+      const alreadyExist = await Cities.find({name: req.params.city})
+      if (alreadyExist.length) res.send(alreadyExist) 
+
+      else {
+
+        let info = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${req.params.city}&appid=${process.env.API_KEY}&units=metric`)
+        let temperature = info.data.main.temp.toString()
         
-    //} catch (error) {
-      //  console.log(error.message);
-        //res.status(400).send(error.message);
-   // }
-    
+        if (temperature){
+            let saved = await Cities.create({name: req.params.city, temperature: parseFloat(temperature)})
+            res.send('guardado -> ' + saved)
+        }
+    }
+ 
+    } catch (error) {
+        console.log(error.message);
+        res.status(400).send(error.message);
+    }
 });
  
-
-
-
-export default router;
+module.exports = router 
