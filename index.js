@@ -2,7 +2,7 @@
 //const bodyParser = require('body-parser');
 //const morgan = require('morgan');
 
-// TO RUN--->  npm start
+// TO RUN-->  npm start
 
 require('dotenv').config();
 const express = require('express')
