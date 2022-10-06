@@ -4,6 +4,7 @@ require('dotenv').config();
 const express = require('express')
 const mongoose = require('mongoose')
 const userRoutes = require('./routes/routes.js')
+var responseTime = require('response-time')
 
 
 var app = express();
@@ -12,6 +13,10 @@ const port = 3000;
 app.listen(port, () => console.log("Listening on port", port));
 
 //MIDDLEWARES
+app.use(responseTime((req, res, time) => {
+    // log the responseTime with URL and method    ????????
+    console.log(time);
+  }))
 app.use(express.json())
 app.use("/api", userRoutes);
 
