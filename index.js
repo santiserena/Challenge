@@ -2,7 +2,7 @@
 //const bodyParser = require('body-parser');
 //const morgan = require('morgan');
 
-// TO RUN--->  npm start
+// TO RUN-->  npm start
 
 require('dotenv').config();
 const express = require('express')
@@ -35,7 +35,7 @@ app.use(responseTime())
     req.headers.delay2 = 'hola'
     next();
   }) */
-  
+
 app.use(express.json())
 app.use("/api", userRoutes);
 
