@@ -24,8 +24,6 @@ router.get("/:city", async (req, res) => {
       } else {
         //possibility of error 15%:
         if (Math.round(Math.random() * 100) <= 15) {
-          err++;
-          console.log("Error counter ->", err);
           throw new Error("Simulated bug -> 15% ");
         } 
         else {
@@ -44,7 +42,8 @@ router.get("/:city", async (req, res) => {
         }
       }
     } catch (error) {
-      console.log(error);
+      console.log("Error counter ->", err);
+      err++;
     }
   }
   if (succes === false && err >= 3)
