@@ -1,11 +1,10 @@
 const express = require("express");
 const axios = require("axios");
-const mongoose = require("mongoose");
 const Cities = require("../model/cities");
 
 const router = express.Router();
 
-//show all db cities
+// UNCOMMENT TO SEE IN THIS ENDPOINT THE DB DOCUMENTS
 /* router.get("/allcities", async (req, res) => {
   const allCities = await Cities.find();
   res.send(allCities);
@@ -20,15 +19,17 @@ router.get("/:city", async (req, res) => {
       const alreadyExist = await Cities.find({ name: req.params.city });
       if (alreadyExist.length) {
         succes = true;
-        res.send(`The temperature consulted is ${alreadyExist[0].temperature} degrees. Source: DB`);
+        res.send(
+          `The temperature consulted is ${alreadyExist[0].temperature} degrees. Source: DB`
+        );
       } else {
         //possibility of error 15%:
         if (Math.round(Math.random() * 100) <= 15) {
           throw new Error("Simulated bug -> 15% ");
-        } 
-        else {
-          
-          let info = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${req.params.city}&appid=${process.env.API_KEY}&units=metric`);
+        } else {
+          let info = await axios.get(
+            `https://api.openweathermap.org/data/2.5/weather?q=${req.params.city}&appid=${process.env.API_KEY}&units=metric`
+          );
           let temperature = info.data.main.temp.toString();
 
           if (temperature) {
@@ -37,7 +38,9 @@ router.get("/:city", async (req, res) => {
               temperature: parseFloat(temperature),
             });
             succes = true;
-            res.send(`The temperature consulted is ${saved.temperature} degrees. Source: API weather`);
+            res.send(
+              `The temperature consulted is ${saved.temperature} degrees. Source: API weather`
+            );
           }
         }
       }

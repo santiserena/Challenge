@@ -1,8 +1,5 @@
 const { default: axios } = require("axios");
-//const { request } = require("express");  //borrar
-//const supertest = require("supertest");   //BORRAR con Package json
 const app = require("../index");
-const mongoose = require("mongoose"); //??????????
 
 describe("TESTS DE CHALLENGE", () => {
   it("Al encontrar una ciudad debe retornar un string comenzando con: The temperature consulted is...", async () => {
