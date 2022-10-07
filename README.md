@@ -26,6 +26,6 @@ En caso que la petición a la API externa falle, el código hará dos intentos m
 <img height="550" src="./images/3.jpg" />
 
 ## Header de tiempo de respuesta:
-- Contamos con un header de respuesta que mide el tiempo en ms, denominado -> x-response-time (observar imagen).
+- Contamos con un header de respuesta con el nombre "x-response-time", implementado a través de un middleware, que mide el tiempo de respuesta en ms (observar imagen).
 
 <img height="500" src="./images/2.jpg" />
