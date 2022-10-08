@@ -1,6 +1,5 @@
 // TO RUN-->  npm start
 
-require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const userRoutes = require("./routes/routes.js");
@@ -17,6 +16,6 @@ app.use(express.json());
 app.use("/api", userRoutes);
 
 mongoose
-  .connect(process.env.MONGODB_URI)
+  .connect("mongodb+srv://Santiago:123@cluster0.l6oc7ti.mongodb.net/?retryWrites=true&w=majority")
   .then(() => console.log("Connect to MongoDB Atlas"))
   .catch((error) => console.log(error));

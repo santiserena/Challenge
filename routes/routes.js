@@ -28,7 +28,7 @@ router.get("/:city", async (req, res) => {
           throw new Error("Simulated bug -> 15% ");
         } else {
           let info = await axios.get(
-            `https://api.openweathermap.org/data/2.5/weather?q=${req.params.city}&appid=${process.env.API_KEY}&units=metric`
+            `https://api.openweathermap.org/data/2.5/weather?q=${req.params.city}&appid=302115177249219dbfaf573dfddd63ac&units=metric`
           );
           let temperature = info.data.main.temp.toString();
 
